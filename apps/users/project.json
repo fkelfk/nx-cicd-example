@@ -1,26 +1,22 @@
 {
-  "name": "mono-cicd",
+  "name": "users",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/mono-cicd/src",
+  "sourceRoot": "apps/users/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/apps/mono-cicd",
-        "main": "apps/mono-cicd/src/main.ts",
-        "tsConfig": "apps/mono-cicd/tsconfig.app.json",
-        "assets": [
-          "apps/mono-cicd/src/assets"
-        ],
+        "outputPath": "dist/apps/users",
+        "main": "apps/users/src/main.ts",
+        "tsConfig": "apps/users/tsconfig.app.json",
+        "assets": ["apps/users/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/mono-cicd/webpack.config.js"
+        "webpackConfig": "apps/users/webpack.config.js"
       },
       "configurations": {
         "development": {},
@@ -31,35 +27,29 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "mono-cicd:build"
+        "buildTarget": "users:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "mono-cicd:build:development"
+          "buildTarget": "users:build:development"
         },
         "production": {
-          "buildTarget": "mono-cicd:build:production"
+          "buildTarget": "users:build:production"
         }
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/mono-cicd/**/*.ts"
-        ]
+        "lintFilePatterns": ["apps/users/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/mono-cicd/jest.config.ts",
+        "jestConfig": "apps/users/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
