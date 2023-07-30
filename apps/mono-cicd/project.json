@@ -1,0 +1,74 @@
+{
+  "name": "mono-cicd",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/mono-cicd/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/mono-cicd",
+        "main": "apps/mono-cicd/src/main.ts",
+        "tsConfig": "apps/mono-cicd/tsconfig.app.json",
+        "assets": [
+          "apps/mono-cicd/src/assets"
+        ],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/mono-cicd/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "mono-cicd:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "mono-cicd:build:development"
+        },
+        "production": {
+          "buildTarget": "mono-cicd:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/mono-cicd/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "apps/mono-cicd/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
